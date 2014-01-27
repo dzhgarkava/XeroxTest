@@ -1,0 +1,15 @@
+D:\git\XeroxTest\XeroxTest\bin\Debug\XeroxTest.exe.config
+D:\git\XeroxTest\XeroxTest\bin\Debug\XeroxTest.exe
+D:\git\XeroxTest\XeroxTest\bin\Debug\XeroxTest.pdb
+D:\git\XeroxTest\XeroxTest\obj\Debug\View\MainWindowView.baml
+D:\git\XeroxTest\XeroxTest\obj\Debug\View\MainWindowView.g.cs
+D:\git\XeroxTest\XeroxTest\obj\Debug\App.g.cs
+D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest_MarkupCompile.cache
+D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.g.resources
+D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.Properties.Resources.resources
+D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.csproj.GenerateResource.Cache
+D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.exe
+D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.pdb
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\bin\Debug\XeroxTest.exe.config
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.exe
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.pdb
