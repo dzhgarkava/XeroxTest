@@ -13,3 +13,13 @@ D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.pdb
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\bin\Debug\XeroxTest.exe.config
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.exe
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.pdb
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\bin\Debug\XeroxTest.exe
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\bin\Debug\XeroxTest.pdb
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\View\MainWindowView.baml
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\View\MainWindowView.g.cs
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\App.g.cs
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest_MarkupCompile.cache
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.g.resources
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.Properties.Resources.resources
+\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.csproj.GenerateResource.Cache

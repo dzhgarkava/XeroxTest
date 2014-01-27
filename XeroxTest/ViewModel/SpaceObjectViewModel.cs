@@ -12,15 +12,22 @@ namespace XeroxTest.ViewModel
     {
         public SpaceObjectViewModel()
         {
-             _spaceObjects = SpaceObjectModel.GetSpaceObjectsCollectionByParentId(-1);
+             _spaceObjects = SpaceObject.GetSpaceObjectsCollectionByParentId(1);
         }
 
-        private ObservableCollection<SpaceObjectModel> _spaceObjects;
+        private ObservableCollection<SpaceObject> _spaceObjects;
+        private SpaceObject _selectedSpaceObject;
 
-        public ObservableCollection<SpaceObjectModel> SpaceObjects
+        public ObservableCollection<SpaceObject> SpaceObjects
         {
             get { return _spaceObjects; }
             set { _spaceObjects = value; }
+        }
+
+        public SpaceObject SelectedSpaceObject 
+        {
+            get { return _selectedSpaceObject; }
+            set { _selectedSpaceObject = value; }
         }
     }
 }

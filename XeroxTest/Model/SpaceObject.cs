@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace XeroxTest.Model
 {
-    class SpaceObjectModel
+    class SpaceObject
     {
         #region Fields
 
@@ -37,7 +37,7 @@ namespace XeroxTest.Model
 
         #region Constructor
 
-        public SpaceObjectModel()
+        public SpaceObject()
         {
             
         }
@@ -153,9 +153,9 @@ namespace XeroxTest.Model
         /// </summary>
         /// <param name="parentId">The one-based index. For root element use -1</param>
         /// <returns></returns>
-        public static ObservableCollection<SpaceObjectModel> GetSpaceObjectsCollectionByParentId(int parentId)
+        public static ObservableCollection<SpaceObject> GetSpaceObjectsCollectionByParentId(int parentId)
         {
-            var spaceObjectsList = new ObservableCollection<SpaceObjectModel>();
+            var spaceObjectsList = new ObservableCollection<SpaceObject>();
 
             XDocument xDocument = XDocument.Load("../../SpaceObjects.xml");
             if (xDocument.Root != null)
@@ -168,9 +168,12 @@ namespace XeroxTest.Model
 
                 foreach (var xSpaceObject in xSpaceObjects)
                 {
-                    SpaceObjectModel spaceObject = new SpaceObjectModel();
-                    var xElement = xSpaceObject.Element("Name");
-                    if (xElement != null) spaceObject.Name = xElement.Value;
+                    SpaceObject spaceObject = new SpaceObject();
+                    var name = xSpaceObject.Element("Name");
+                    if (name != null) spaceObject.Name = name.Value;
+
+                    var wikipage = xSpaceObject.Element("WikiPage");
+                    if (wikipage != null) spaceObject.WikiPage = wikipage.Value;
 
                     spaceObjectsList.Add(spaceObject);
                 }

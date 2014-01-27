@@ -3,13 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <ListBox ItemsSource="{Binding Path=SpaceObjectModelView.SpaceObjects}" HorizontalAlignment="Left"  Margin="0,0,0,0" VerticalAlignment="Stretch" Width="250" >
+        <ListBox Name="ListBoxq" ItemsSource="{Binding Path=SpaceObjects, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedSpaceObject, Mode=TwoWay}" HorizontalAlignment="Left"  Margin="0,0,0,0" VerticalAlignment="Stretch" Width="250" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=SpaceObjectModel.Name}"></TextBlock>
+                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
+        
+        <ContentControl Content="{Binding Path=SelectedSpaceObject, Mode=TwoWay}" Width="250" HorizontalAlignment="Right">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                        <TextBlock Text="{Binding Path=WikiPage}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
     </Grid>
 </Window>
