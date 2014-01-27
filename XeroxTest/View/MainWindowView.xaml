@@ -18,20 +18,20 @@
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Path=Name}"></TextBlock>
-                        <TextBlock Text="{Binding Path=WikiPage}"></TextBlock>
-                        <Image Source="{Binding Path=ImageData}" Width="100" Height="100"></Image>
-                        <TextBlock Text="{Binding Path=ImageHint}"></TextBlock>
-                        <TextBlock Text="{Binding Path=MeanRadiusInKm}"></TextBlock>
-                        <TextBlock Text="{Binding Path=MeanRadiusByEarth}"></TextBlock>
-                        <TextBlock Text="{Binding Path=Volume10Pow9Km3}"></TextBlock>
-                        <TextBlock Text="{Binding Path=VolumeByEarth}"></TextBlock>
-                        <TextBlock Text="{Binding Path=Mass10Pow21Kg}"></TextBlock>
-                        <TextBlock Text="{Binding Path=MassByEarth}"></TextBlock>
-                        <TextBlock Text="{Binding Path=DestinygByCm3}"></TextBlock>
-                        <TextBlock Text="{Binding Path=SurfaceGravitymByS2}"></TextBlock>
-                        <TextBlock Text="{Binding Path=SurfaceGravityByEarth}"></TextBlock>
-                        <TextBlock Text="{Binding Path=TypeOfObject}"></TextBlock>
+                        <TextBlock Text="{Binding Path=Name, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=WikiPage, Mode=TwoWay}"></TextBlock>
+                        <Image Source="{Binding Path=Img.Source, Mode=TwoWay}" Width="100" Height="100"></Image>
+                        <TextBlock Text="{Binding Path=ImageHint, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=MeanRadiusInKm, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=MeanRadiusByEarth, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=Volume10Pow9Km3, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=VolumeByEarth, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=Mass10Pow21Kg, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=MassByEarth, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=DestinygByCm3, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=SurfaceGravitymByS2, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=SurfaceGravityByEarth, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=TypeOfObject, Mode=TwoWay}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ContentControl.ContentTemplate>

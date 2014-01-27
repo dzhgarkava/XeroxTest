@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Runtime.Serialization;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
 namespace XeroxTest.Model
@@ -32,6 +36,7 @@ namespace XeroxTest.Model
         private string _surfaceGravityByEarth;
         private string _typeOfObject;
 
+        private Image img;
         #endregion
 
 
@@ -70,6 +75,8 @@ namespace XeroxTest.Model
             get { return _wikiPage; }
             set { _wikiPage = value; }
         }
+
+        public Image Img { get; set; }
 
         public byte[] ImageData
         {
