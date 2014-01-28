@@ -15,7 +15,6 @@ D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.pdb
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.pdb
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\bin\Debug\XeroxTest.exe
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\bin\Debug\XeroxTest.pdb
-\\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.csprojResolveAssemblyReference.cache
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\View\MainWindowView.baml
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\View\MainWindowView.g.cs
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\App.g.cs
