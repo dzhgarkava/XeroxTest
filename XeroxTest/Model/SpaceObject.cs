@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Security.RightsManagement;
 using System.Text;
@@ -13,11 +15,12 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
+using XeroxTest.Annotations;
 
 
 namespace XeroxTest.Model
 {
-    class SpaceObject
+    class SpaceObject :INotifyPropertyChanged
     {
         #region Fields
 
@@ -25,7 +28,7 @@ namespace XeroxTest.Model
         private int _parentId;
         private string _name;
         private string _wikiPage;
-        private byte[] _imageData;
+        private BitmapSource _imageData;
         private string _imageHint;
         private string _meanRadiusInKm;
         private string _meanRadiusByEarth;
@@ -37,9 +40,7 @@ namespace XeroxTest.Model
         private string _surfaceGravitymByS2;
         private string _surfaceGravityByEarth;
         private string _typeOfObject;
-        private BitmapSource _imagesource;
 
-        private Image img;
         #endregion
 
 
@@ -81,7 +82,7 @@ namespace XeroxTest.Model
 
         public Image Img { get; set; }
 
-        public byte[] ImageData
+        public BitmapSource ImageData
         {
             get { return _imageData; }
             set { _imageData = value; }
@@ -153,12 +154,6 @@ namespace XeroxTest.Model
             set { _typeOfObject = value; }
         }
 
-        public BitmapSource ImageSource
-        {
-            get { return _imagesource; }
-            set { _imagesource = value; }
-        }
-
         #endregion
 
 
@@ -184,33 +179,25 @@ namespace XeroxTest.Model
 
                 foreach (var xSpaceObject in xSpaceObjects)
                 {
-                    SpaceObject spaceObject = new SpaceObject();
-
-                    spaceObject.ObjectId = Convert.ToInt32(GetXElement(xSpaceObject, "ObjectId"));
-                    spaceObject.ParentId = Convert.ToInt32(GetXElement(xSpaceObject, "ParentId"));
-                    spaceObject.Name = GetXElement(xSpaceObject, "Name");
-                    spaceObject.WikiPage = GetXElement(xSpaceObject, "WikiPage");
-                    spaceObject.ImageData = Encoding.UTF8.GetBytes(GetXElement(xSpaceObject, "ImageData"));
-                    spaceObject.ImageHint = GetXElement(xSpaceObject, "ImageHint");
-                    spaceObject.MeanRadiusInKm = GetXElement(xSpaceObject, "MeanRadiusInKM");
-                    spaceObject.MeanRadiusByEarth = GetXElement(xSpaceObject, "MeanRadiusByEarth");
-                    spaceObject.Volume10Pow9Km3 = GetXElement(xSpaceObject, "Volume10pow9KM3");
-                    spaceObject.VolumeByEarth = GetXElement(xSpaceObject, "VolumeRByEarth");
-                    spaceObject.Mass10Pow21Kg = GetXElement(xSpaceObject, "Mass10pow21kg");
-                    spaceObject.MassByEarth = GetXElement(xSpaceObject, "MassByEarth");
-                    spaceObject.DestinygByCm3 = GetXElement(xSpaceObject, "DensitygBycm3");
-                    spaceObject.SurfaceGravitymByS2 = GetXElement(xSpaceObject, "SurfaceGravitymBys2");
-                    spaceObject.SurfaceGravityByEarth = GetXElement(xSpaceObject, "SurfaceGravityByEarth");
-                    spaceObject.TypeOfObject = GetXElement(xSpaceObject, "TypeOfObject");
-
-                    var bytes = Convert.FromBase64String(GetXElement(xSpaceObject, "ImageData"));
-
-                    var source = new BitmapImage();
-                    source.BeginInit();
-                    source.StreamSource = new MemoryStream(bytes);
-                    source.EndInit();
-
-                    spaceObject.ImageSource = source;
+                    var spaceObject = new SpaceObject
+                    {
+                        ObjectId = Convert.ToInt32(GetXElement(xSpaceObject, "ObjectId")),
+                        ParentId = Convert.ToInt32(GetXElement(xSpaceObject, "ParentId")),
+                        Name = GetXElement(xSpaceObject, "Name"),
+                        WikiPage = GetXElement(xSpaceObject, "WikiPage"),
+                        ImageData = GetImageFromBytes(Convert.FromBase64String(GetXElement(xSpaceObject, "ImageData"))),
+                        ImageHint = GetXElement(xSpaceObject, "ImageHint"),
+                        MeanRadiusInKm = GetXElement(xSpaceObject, "MeanRadiusInKM"),
+                        MeanRadiusByEarth = GetXElement(xSpaceObject, "MeanRadiusByEarth"),
+                        Volume10Pow9Km3 = GetXElement(xSpaceObject, "Volume10pow9KM3"),
+                        VolumeByEarth = GetXElement(xSpaceObject, "VolumeRByEarth"),
+                        Mass10Pow21Kg = GetXElement(xSpaceObject, "Mass10pow21kg"),
+                        MassByEarth = GetXElement(xSpaceObject, "MassByEarth"),
+                        DestinygByCm3 = GetXElement(xSpaceObject, "DensitygBycm3"),
+                        SurfaceGravitymByS2 = GetXElement(xSpaceObject, "SurfaceGravitymBys2"),
+                        SurfaceGravityByEarth = GetXElement(xSpaceObject, "SurfaceGravityByEarth"),
+                        TypeOfObject = GetXElement(xSpaceObject, "TypeOfObject")
+                    };
 
                     spaceObjectsList.Add(spaceObject);
                 }
@@ -219,29 +206,15 @@ namespace XeroxTest.Model
             return spaceObjectsList;
         }
 
-        private static byte[] GetBytes(string str)
-        {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
-        }
 
-        private static BitmapImage LoadImage(byte[] imageData)
+        private static BitmapImage GetImageFromBytes(byte[] bytes)
         {
-            if (imageData == null || imageData.Length == 0) return null;
-            var image = new BitmapImage();
-            using (var mem = new MemoryStream(imageData))
-            {
-                mem.Position = 0;
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = null;
-                image.StreamSource = mem;
-                image.EndInit();
-            }
-            image.Freeze();
-            return image;
+            var source = new BitmapImage();
+            source.BeginInit();
+            source.StreamSource = new MemoryStream(bytes);
+            source.EndInit();
+
+            return source;
         }
 
         private static string GetXElement(XElement xElement, string name)
@@ -256,6 +229,17 @@ namespace XeroxTest.Model
 
         #endregion
 
+        #region Implementation INotifyProoertyChanged Members
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }
