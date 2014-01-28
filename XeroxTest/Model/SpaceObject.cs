@@ -48,7 +48,7 @@ namespace XeroxTest.Model
 
         public SpaceObject()
         {
-            
+            ChildrensCollection = new List<SpaceObject>();
         }
 
         #endregion
@@ -59,100 +59,180 @@ namespace XeroxTest.Model
         public int ObjectId
         {
             get { return _objectId; }
-            set { _objectId = value; }
+            set
+            {
+                if (value == _objectId) return;
+                _objectId = value; 
+                OnPropertyChanged();
+            }
         }
 
         public int ParentId
         {
             get { return _parentId; }
-            set { _parentId = value; }
+            set
+            {
+                if (value == _parentId) return;
+                _parentId = value;
+                OnPropertyChanged();
+            }
         }
 
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set
+            {
+                if (value == _name) return;
+                _name = value;
+                OnPropertyChanged();
+            }
         }
 
         public string WikiPage
         {
             get { return _wikiPage; }
-            set { _wikiPage = value; }
+            set
+            {
+                if (value == _wikiPage) return;
+                _wikiPage = value;
+                OnPropertyChanged();
+            }
         }
-
-        public Image Img { get; set; }
 
         public BitmapSource ImageData
         {
             get { return _imageData; }
-            set { _imageData = value; }
+            set
+            {
+                if (value.Equals(_imageData)) return;
+                _imageData = value;
+                OnPropertyChanged();
+            }
         }
 
         public string ImageHint
         {
             get { return _imageHint; }
-            set { _imageHint = value; }
+            set
+            {
+                if (value == _imageHint) return;
+                _imageHint = value;
+                OnPropertyChanged();
+            }
         }
 
         public string MeanRadiusInKm
         {
             get { return _meanRadiusInKm; }
-            set { _meanRadiusInKm = value; }
+            set
+            {
+                if (value == _meanRadiusInKm) return;
+                _meanRadiusInKm = value;
+                OnPropertyChanged();
+            }
         }
 
         public string MeanRadiusByEarth
         {
             get { return _meanRadiusByEarth; }
-            set { _meanRadiusByEarth = value; }
+            set
+            {
+                if (value == _meanRadiusByEarth) return;
+                _meanRadiusByEarth = value;
+                OnPropertyChanged();
+            }
         }
 
         public string Volume10Pow9Km3
         {
             get { return _volume10Pow9Km3; }
-            set { _volume10Pow9Km3 = value; }
+            set
+            {
+                if (value == _volume10Pow9Km3) return;
+                _volume10Pow9Km3 = value;
+                OnPropertyChanged();
+            }
         }
 
         public string VolumeByEarth
         {
             get { return _volumeByEarth; }
-            set { _volumeByEarth = value; }
+            set
+            {
+                if (value == _volumeByEarth) return;
+                _volumeByEarth = value;
+                OnPropertyChanged();
+            }
         }
 
         public string Mass10Pow21Kg
         {
             get { return _mass10Pow21Kg; }
-            set { _mass10Pow21Kg = value; }
+            set
+            {
+                if (value == _mass10Pow21Kg) return;
+                _mass10Pow21Kg = value;
+                OnPropertyChanged();
+            }
         }
 
         public string MassByEarth
         {
             get { return _massByEarth; }
-            set { _massByEarth = value; }
+            set
+            {
+                if (value == _massByEarth) return;
+                _massByEarth = value;
+                OnPropertyChanged();
+            }
         }
 
         public string DestinygByCm3
         {
             get { return _destinygByCm3; }
-            set { _destinygByCm3 = value; }
+            set
+            {
+                if (value == _destinygByCm3) return;
+                _destinygByCm3 = value;
+                OnPropertyChanged();
+            }
         }
 
         public string SurfaceGravitymByS2
         {
             get { return _surfaceGravitymByS2; }
-            set { _surfaceGravitymByS2 = value; }
+            set
+            {
+                if (value == _surfaceGravitymByS2) return;
+                _surfaceGravitymByS2 = value;
+                OnPropertyChanged();
+            }
         }
 
         public string SurfaceGravityByEarth
         {
             get { return _surfaceGravityByEarth; }
-            set { _surfaceGravityByEarth = value; }
+            set
+            {
+                if (value == _surfaceGravityByEarth) return;
+                _surfaceGravityByEarth = value;
+                OnPropertyChanged();
+            }
         }
 
         public string TypeOfObject
         {
             get { return _typeOfObject; }
-            set { _typeOfObject = value; }
+            set
+            {
+                if (value == _typeOfObject) return;
+                _typeOfObject = value;
+                OnPropertyChanged();
+            }
         }
+
+        public List<SpaceObject> ChildrensCollection { get; set; } 
 
         #endregion
 
@@ -228,6 +308,7 @@ namespace XeroxTest.Model
         }
 
         #endregion
+
 
         #region Implementation INotifyProoertyChanged Members
 

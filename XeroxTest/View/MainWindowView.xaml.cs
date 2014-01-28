@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using XeroxTest.Model;
 
 namespace XeroxTest.View
 {
@@ -23,6 +24,12 @@ namespace XeroxTest.View
         public MainWindowView()
         {
             InitializeComponent();
+        }
+
+        private void MyTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            SpaceObject sp = (SpaceObject) myTreeView.SelectedItem;
+            
         }
     }
 }

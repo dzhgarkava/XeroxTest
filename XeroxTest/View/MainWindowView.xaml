@@ -8,7 +8,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Path=Name}">
+                        <TextBlock Background="DeepPink" Text="{Binding Path=Name}">
                             <TextBlock.InputBindings>
                                 <MouseBinding MouseAction="LeftClick" Command="{Binding Path=ListBoxItemClickCommand, Mode=TwoWay}"></MouseBinding>
                             </TextBlock.InputBindings>
@@ -18,35 +18,36 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <ContentControl Content="{Binding Path=SelectedSpaceObject, Mode=TwoWay}" Width="450" HorizontalAlignment="Right">
+        <ContentControl Content="{Binding ElementName=myTreeView, Path=SelectedItem}" Width="450" HorizontalAlignment="Right">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Path=Name, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=WikiPage, Mode=TwoWay}"></TextBlock>
-                        <Image Source="{Binding Path=ImageData}" ToolTip="{Binding Path=ImageHint}" Height="150" HorizontalAlignment="Left"></Image>
-                        <TextBlock Text="{Binding Path=MeanRadiusInKm, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=MeanRadiusByEarth, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=Volume10Pow9Km3, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=VolumeByEarth, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=Mass10Pow21Kg, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=MassByEarth, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=DestinygByCm3, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=SurfaceGravitymByS2, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=SurfaceGravityByEarth, Mode=TwoWay}"></TextBlock>
-                        <TextBlock Text="{Binding Path=TypeOfObject, Mode=TwoWay}"></TextBlock>
+                        <TextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=WikiPage, Mode=TwoWay}" />
+                        <Image Source="{Binding Path=ImageData}" ToolTip="{Binding Path=ImageHint}" Height="150" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding Path=MeanRadiusInKm, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=MeanRadiusByEarth, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=Volume10Pow9Km3, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=VolumeByEarth, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=Mass10Pow21Kg, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=MassByEarth, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=DestinygByCm3, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=SurfaceGravitymByS2, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=SurfaceGravityByEarth, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding Path=TypeOfObject, Mode=TwoWay}" />
                     </StackPanel>
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>
-        <TreeView HorizontalAlignment="Left" Height="320" ItemsSource="{Binding Path=SpaceObjects}" VerticalAlignment="Top" Width="130">
+
+        <TreeView x:Name="myTreeView" HorizontalAlignment="Left" ItemsSource="{Binding Path=SpaceObjects}" SelectedItemChanged="MyTreeView_OnSelectedItemChanged" Width="130" Height="469" VerticalAlignment="Top">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenCollection}">
                     <StackPanel>
                         <TextBlock Text="{Binding Path=Name, Mode=TwoWay}"></TextBlock>
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
-            </TreeView>
+        </TreeView>
     </Grid>
 </Window>

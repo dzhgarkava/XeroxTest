@@ -15,8 +15,12 @@ namespace XeroxTest.ViewModel
         public SpaceObjectViewModel()
         {
             ListBoxItemClickCommand = new Command(arg => ListBoxItemClickMethod());
+            LinkCommand = new Command(arg => LinkMethod());
              
-            _spaceObjects = SpaceObject.GetSpaceObjectsCollectionByParentId(1);
+            _spaceObjects = SpaceObject.GetSpaceObjectsCollectionByParentId(-1);
+            //_spaceObjects[0].ChildrensCollection = SpaceObject.GetSpaceObjectsCollectionByParentId(1);
+            _spaceObjects[0].ChildrensCollection.Add(new SpaceObject { Name = "123" });
+            _spaceObjects[0].ChildrensCollection.Add(new SpaceObject { Name = "456" });
         }
 
         private ObservableCollection<SpaceObject> _spaceObjects;
@@ -31,12 +35,21 @@ namespace XeroxTest.ViewModel
         public SpaceObject SelectedSpaceObject 
         {
             get { return _selectedSpaceObject; }
-            set { _selectedSpaceObject = value; }
+            set
+            {
+                _selectedSpaceObject = value;
+            }
         }
 
         public ICommand ListBoxItemClickCommand { get; set; }
+        public ICommand LinkCommand { get; set; }
 
         private void ListBoxItemClickMethod()
+        {
+            MessageBox.Show("Clicked");
+        }
+
+        private void LinkMethod()
         {
             MessageBox.Show("Clicked");
         }
