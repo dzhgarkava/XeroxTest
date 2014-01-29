@@ -40,7 +40,7 @@
             </ContentControl.ContentTemplate>
         </ContentControl>
 
-        <TreeView x:Name="myTreeView" HorizontalAlignment="Left" ItemsSource="{Binding Path=SpaceObjects}" SelectedItemChanged="MyTreeView_OnSelectedItemChanged" Width="130" Height="469" VerticalAlignment="Top">
+        <TreeView x:Name="myTreeView" HorizontalAlignment="Left" ItemsSource="{Binding Path=SpaceObjects}" Width="130" Height="469" VerticalAlignment="Top">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrenCollection}">
                     <StackPanel>
@@ -48,6 +48,11 @@
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
+            <!--<TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"></Setter>
+                </Style>
+            </TreeView.ItemContainerStyle>-->
         </TreeView>
     </Grid>
 </Window>

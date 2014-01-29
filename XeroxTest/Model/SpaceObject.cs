@@ -41,6 +41,8 @@ namespace XeroxTest.Model
         private string _surfaceGravityByEarth;
         private string _typeOfObject;
 
+        private List<SpaceObject> _childrenCollection;
+
         #endregion
 
 
@@ -48,7 +50,7 @@ namespace XeroxTest.Model
 
         public SpaceObject()
         {
-            ChildrensCollection = new List<SpaceObject>();
+            _childrenCollection = new List<SpaceObject>();
         }
 
         #endregion
@@ -232,7 +234,15 @@ namespace XeroxTest.Model
             }
         }
 
-        public List<SpaceObject> ChildrensCollection { get; set; } 
+        public List<SpaceObject> ChildrensCollection {
+            get { return _childrenCollection; }
+            set
+            {
+                if (value.Equals(_childrenCollection)) return;
+                _childrenCollection = value; 
+                OnPropertyChanged();
+            }
+        } 
 
         #endregion
 

@@ -22,5 +22,5 @@ D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.pdb
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.g.resources
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.Properties.Resources.resources
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.csproj.GenerateResource.Cache
-D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.csprojResolveAssemblyReference.cache
 \\psf\Home\Documents\_dev\XeroxTest\XeroxTest\obj\Debug\XeroxTest.csprojResolveAssemblyReference.cache
+D:\git\XeroxTest\XeroxTest\obj\Debug\XeroxTest.csprojResolveAssemblyReference.cache
