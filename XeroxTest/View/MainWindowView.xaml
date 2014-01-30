@@ -5,7 +5,7 @@
     <Grid>
         <StackPanel>
             <TextBlock Margin="10,8,0,3" FontSize="20">Solar System's Tree:</TextBlock>
-            <TreeView Margin="10,3,0,3" BorderThickness="0" x:Name="SolarSystemTreeView" SelectedItemChanged="SolarSystemTreeView_OnSelectedItemChanged" HorizontalAlignment="Left" ItemsSource="{Binding Path=SpaceObjects, Mode=TwoWay}" Width="250" Height="469" VerticalAlignment="Top">
+            <TreeView Margin="10,3,0,3" BorderThickness="0" x:Name="SolarSystemTreeView" SelectedItemChanged="SolarSystemTreeView_OnSelectedItemChanged" HorizontalAlignment="Left" ItemsSource="{Binding Path=SpaceObjects, Mode=TwoWay}" Width="250" VerticalAlignment="Stretch">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrensCollection, Mode=TwoWay}">
                         <StackPanel>
@@ -21,7 +21,7 @@
             </TreeView>
         </StackPanel>
 
-        <ContentControl x:Name="AdditionInfoContentControl" Visibility="Collapsed" Content="{Binding ElementName=SolarSystemTreeView, Path=SelectedItem}" Width="450" HorizontalAlignment="Right">
+        <ContentControl x:Name="AdditionInfoContentControl" Visibility="Collapsed" Content="{Binding ElementName=SolarSystemTreeView, Path=SelectedItem}" Width="450" HorizontalAlignment="Left" Margin="250,0,0,0">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <Grid Margin="5">
@@ -40,6 +40,5 @@
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>
-
     </Grid>
 </Window>

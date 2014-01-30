@@ -11,7 +11,5 @@ namespace XeroxTest.ViewModel
         }
 
         public ObservableCollection<SpaceObject> SpaceObjects { get; set; }
-
-        public string MeanRadiusText = "Mean redius";
     }
 }
