@@ -5,14 +5,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Security.RightsManagement;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
+using System.Threading;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using XeroxTest.Annotations;
@@ -22,6 +17,16 @@ namespace XeroxTest.Model
 {
     class SpaceObject :INotifyPropertyChanged
     {
+        #region Constructor
+
+        public SpaceObject()
+        {
+            _childrenCollection = new ObservableCollection<SpaceObject>();
+            PropertyChanged += OnPropertyChanged;
+        }
+
+        #endregion
+
         #region Fields
 
         private int _objectId;
@@ -40,21 +45,11 @@ namespace XeroxTest.Model
         private string _surfaceGravitymByS2;
         private string _surfaceGravityByEarth;
         private string _typeOfObject;
-
-        private List<SpaceObject> _childrenCollection;
-
-        #endregion
-
-
-        #region Constructor
-
-        public SpaceObject()
-        {
-            _childrenCollection = new List<SpaceObject>();
-        }
+        private ObservableCollection<SpaceObject> _childrenCollection;
+        private bool _isExpanded;
+        private bool _isHasChild;
 
         #endregion
-
 
         #region Properties
 
@@ -234,7 +229,8 @@ namespace XeroxTest.Model
             }
         }
 
-        public List<SpaceObject> ChildrensCollection {
+        public ObservableCollection<SpaceObject> ChildrensCollection
+        {
             get { return _childrenCollection; }
             set
             {
@@ -242,10 +238,35 @@ namespace XeroxTest.Model
                 _childrenCollection = value; 
                 OnPropertyChanged();
             }
-        } 
+        }
+
+        public bool IsExpanded
+        {
+            get { return _isExpanded; }
+            set
+            {
+                if (value != _isExpanded)
+                {
+                    _isExpanded = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsHasChild
+        {
+            get { return _isHasChild; }
+            set
+            {
+                if (value != _isHasChild)
+                {
+                    _isHasChild = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         #endregion
-
 
         #region Methods
 
@@ -253,7 +274,7 @@ namespace XeroxTest.Model
         /// Method creates Collection of SpaceObjects 
         /// </summary>
         /// <param name="parentId">The one-based index. For root element use -1</param>
-        /// <returns></returns>
+        /// <returns>ObservableCollection of SpaceObjects </returns>
         public static ObservableCollection<SpaceObject> GetSpaceObjectsCollectionByParentId(int parentId)
         {
             var spaceObjectsList = new ObservableCollection<SpaceObject>();
@@ -269,9 +290,10 @@ namespace XeroxTest.Model
 
                 foreach (var xSpaceObject in xSpaceObjects)
                 {
+                    int obi = Convert.ToInt32(GetXElement(xSpaceObject, "ObjectId"));
                     var spaceObject = new SpaceObject
                     {
-                        ObjectId = Convert.ToInt32(GetXElement(xSpaceObject, "ObjectId")),
+                        ObjectId = obi,
                         ParentId = Convert.ToInt32(GetXElement(xSpaceObject, "ParentId")),
                         Name = GetXElement(xSpaceObject, "Name"),
                         WikiPage = GetXElement(xSpaceObject, "WikiPage"),
@@ -286,8 +308,11 @@ namespace XeroxTest.Model
                         DestinygByCm3 = GetXElement(xSpaceObject, "DensitygBycm3"),
                         SurfaceGravitymByS2 = GetXElement(xSpaceObject, "SurfaceGravitymBys2"),
                         SurfaceGravityByEarth = GetXElement(xSpaceObject, "SurfaceGravityByEarth"),
-                        TypeOfObject = GetXElement(xSpaceObject, "TypeOfObject")
+                        TypeOfObject = GetXElement(xSpaceObject, "TypeOfObject"),
+                        IsHasChild = IsSpaceObjectHasChild(obi)
                     };
+                    
+                    if (spaceObject.IsHasChild) spaceObject.ChildrensCollection.Add(new SpaceObject { Name = "Loading..." });
 
                     spaceObjectsList.Add(spaceObject);
                 }
@@ -296,7 +321,33 @@ namespace XeroxTest.Model
             return spaceObjectsList;
         }
 
+        /// <summary>
+        /// Method returns True if SpaceObject has childs and Fals id doesn't
+        /// </summary>
+        /// <param name="objectId">The one-based index of current SpaceObject.</param>
+        public static bool IsSpaceObjectHasChild(int objectId)
+        {
+            bool retIsHasChild = false;
 
+            XDocument xDocument = XDocument.Load("../../SpaceObjects.xml");
+            if (xDocument.Root != null)
+            {
+                List<XElement> xSpaceObjects = xDocument.Root.Elements("SpaceObjects").Where(x =>
+                {
+                    var xElement = x.Element("ParentId");
+                    return xElement != null && xElement.Value == objectId.ToString(CultureInfo.InvariantCulture);
+                }).ToList();
+
+                if (xSpaceObjects.Count > 0) retIsHasChild = true;
+            }
+
+            return retIsHasChild;
+        }
+
+        /// <summary>
+        /// Method returns BitmapImage from bytes array
+        /// </summary>
+        /// <param name="bytes">Array of bytes.</param>
         private static BitmapImage GetImageFromBytes(byte[] bytes)
         {
             var source = new BitmapImage();
@@ -307,18 +358,53 @@ namespace XeroxTest.Model
             return source;
         }
 
+        /// <summary>
+        /// Method returns value of XElement's child if applicable
+        /// </summary>
+        /// <param name="xElement">Parent XElement</param>
+        /// <param name="name">Name of child</param>
         private static string GetXElement(XElement xElement, string name)
         {
-            string elementName = "";
+            string elementValue = "";
 
             var element = xElement.Element(name);
-            if (element != null) elementName = element.Value;
+            if (element != null) elementValue = element.Value;
 
-            return elementName;
+            return elementValue;
+        }
+
+        /// <summary>
+        /// Method handles changing of properties
+        /// </summary>
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName == "IsExpanded")
+            {
+                var spaceObject = (SpaceObject)sender;
+                if (spaceObject.IsExpanded)
+                {
+                    var backgroundWorker = new BackgroundWorker();
+
+                    backgroundWorker.DoWork += delegate
+                    {
+                        Thread.Sleep(2000); // Якобы длительный процесс, который загружает данные
+                        Application.Current.Dispatcher.Invoke(delegate
+                        {
+                            spaceObject.ChildrensCollection = GetSpaceObjectsCollectionByParentId(spaceObject.ObjectId);
+                        });
+                    };
+
+                    backgroundWorker.RunWorkerAsync();
+                }
+                else
+                {
+                    spaceObject.ChildrensCollection.Clear();
+                    spaceObject.ChildrensCollection.Add(new SpaceObject { Name = "Loading..." });
+                }
+            }
         }
 
         #endregion
-
 
         #region Implementation INotifyProoertyChanged Members
 
@@ -332,5 +418,6 @@ namespace XeroxTest.Model
         }
 
         #endregion
+
     }
 }
