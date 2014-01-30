@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Data;
 
 namespace XeroxTest.View
 {
@@ -10,6 +11,11 @@ namespace XeroxTest.View
         public MainWindowView()
         {
             InitializeComponent();
+        }
+
+        private void SolarSystemTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            AdditionInfoContentControl.Visibility = Visibility.Visible;
         }
     }
 }

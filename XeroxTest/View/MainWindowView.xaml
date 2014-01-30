@@ -3,39 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="500" Width="725">
     <Grid>
-        <TreeView x:Name="SolarSystemTreeView" HorizontalAlignment="Left" ItemsSource="{Binding Path=SpaceObjects, Mode=TwoWay}" Width="250" Height="469" VerticalAlignment="Top">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrensCollection, Mode=TwoWay}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=Name, Mode=TwoWay}"></TextBlock>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-            <TreeView.Resources>
-                <Style TargetType="TreeViewItem">
-                    <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"></Setter>
-                </Style>
-            </TreeView.Resources>
-        </TreeView>
+        <StackPanel>
+            <TextBlock Margin="10,8,0,3" FontSize="20">Solar System's Tree:</TextBlock>
+            <TreeView Margin="10,3,0,3" BorderThickness="0" x:Name="SolarSystemTreeView" SelectedItemChanged="SolarSystemTreeView_OnSelectedItemChanged" HorizontalAlignment="Left" ItemsSource="{Binding Path=SpaceObjects, Mode=TwoWay}" Width="250" Height="469" VerticalAlignment="Top">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildrensCollection, Mode=TwoWay}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name, Mode=TwoWay}"></TextBlock>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+                <TreeView.Resources>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"></Setter>
+                    </Style>
+                </TreeView.Resources>
+            </TreeView>
+        </StackPanel>
 
-        <ContentControl Content="{Binding ElementName=SolarSystemTreeView, Path=SelectedItem}" Width="450" HorizontalAlignment="Right">
+        <ContentControl x:Name="AdditionInfoContentControl" Visibility="Collapsed" Content="{Binding ElementName=SolarSystemTreeView, Path=SelectedItem}" Width="450" HorizontalAlignment="Right">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=WikiPage, Mode=TwoWay}" />
-                        <Image Source="{Binding Path=ImageData}" ToolTip="{Binding Path=ImageHint}" Height="150" HorizontalAlignment="Left" />
-                        <TextBlock Text="{Binding Path=MeanRadiusInKm, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=MeanRadiusByEarth, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=Volume10Pow9Km3, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=VolumeByEarth, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=Mass10Pow21Kg, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=MassByEarth, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=DestinygByCm3, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=SurfaceGravitymByS2, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=SurfaceGravityByEarth, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding Path=TypeOfObject, Mode=TwoWay}" />
-                    </StackPanel>
+                    <Grid Margin="5">
+                        <StackPanel>
+                            <TextBlock Margin="0,3,0,3" FontSize="20" Text="{Binding Path=Name, Mode=TwoWay}" />
+                            <Image Margin="0,7,0,7" Source="{Binding Path=ImageData}" ToolTip="{Binding Path=ImageHint}" Height="150" HorizontalAlignment="Left"  />
+                            <TextBlock Margin="0,3,0,3" Text="{Binding Path=WikiPage, Mode=TwoWay}" />
+                            <TextBlock Margin="0,3,0,3">Mean radius: <Run Text="{Binding Path=MeanRadiusInKm}" /> km — <Run Text="{Binding Path=MeanRadiusByEarth}" /> Earth's radius</TextBlock>
+                            <TextBlock Margin="0,3,0,3">Volume: <Run Text="{Binding Path=Volume10Pow9Km3}"/>*10<Run Text="9" FontSize="9" BaselineAlignment="Top" /> km<Run Text="3" FontSize="9" BaselineAlignment="Top" /> — <Run Text="{Binding Path=VolumeByEarth}" /> Earth's volume</TextBlock>
+                            <TextBlock Margin="0,3,0,3">Mass: <Run Text="{Binding Path=Mass10Pow21Kg}"/>*10<Run Text="21" FontSize="9" BaselineAlignment="Top" /> kg — <Run Text="{Binding Path=MassByEarth}" /> Earth's mass</TextBlock>
+                            <TextBlock Margin="0,3,0,3">Destiny: <Run Text="{Binding Path=DestinygByCm3}"/> cm<Run Text="3" FontSize="9" BaselineAlignment="Top" /></TextBlock>
+                            <TextBlock Margin="0,3,0,3">Surface gravity: <Run Text="{Binding Path=SurfaceGravitymByS2}"/>m/s<Run Text="2" FontSize="9" BaselineAlignment="Top" /> — <Run Text="{Binding Path=SurfaceGravityByEarth}" /> Earth's surface gravity</TextBlock>
+                            <TextBlock Margin="0,3,0,3">Type of object: <Run Text="{Binding Path=TypeOfObject, Mode=TwoWay}" /></TextBlock>
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>

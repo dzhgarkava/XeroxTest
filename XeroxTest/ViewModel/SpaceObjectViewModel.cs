@@ -7,9 +7,11 @@ namespace XeroxTest.ViewModel
     {
         public SpaceObjectViewModel()
         {
-            SpaceObjects = SpaceObject.GetSpaceObjectsCollectionByParentId(-1);   
+            SpaceObjects = SpaceObject.GetSpaceObjectsCollectionByParentId(-1);
         }
 
         public ObservableCollection<SpaceObject> SpaceObjects { get; set; }
+
+        public string MeanRadiusText = "Mean redius";
     }
 }
